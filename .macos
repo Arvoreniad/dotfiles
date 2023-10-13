@@ -7,10 +7,10 @@
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
-sudo -v
+# sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+# while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -23,7 +23,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
 
 # Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
@@ -94,7 +94,7 @@ defaults write com.apple.helpviewer DevMode -bool true
 
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+# sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 # Disable Notification Center and remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
@@ -180,41 +180,41 @@ defaults write NSGlobalDomain AppleMetricUnits -bool false
 ###############################################################################
 
 # Enable lid wakeup
-sudo pmset -a lidwake 1
+# sudo pmset -a lidwake 1
 
-# Restart automatically on power loss
-sudo pmset -a autorestart 1
+# # Restart automatically on power loss
+# sudo pmset -a autorestart 1
 
-# Restart automatically if the computer freezes
-sudo systemsetup -setrestartfreeze on
+# # Restart automatically if the computer freezes
+# sudo systemsetup -setrestartfreeze on
 
-# Sleep the display after 15 minutes
-sudo pmset -a displaysleep 15
+# # Sleep the display after 15 minutes
+# sudo pmset -a displaysleep 15
 
-# Disable machine sleep while charging
-sudo pmset -c sleep 0
+# # Disable machine sleep while charging
+# sudo pmset -c sleep 0
 
-# Set machine sleep to 5 minutes on battery
-sudo pmset -b sleep 5
+# # Set machine sleep to 5 minutes on battery
+# sudo pmset -b sleep 5
 
-# Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
+# # Set standby delay to 24 hours (default is 1 hour)
+# sudo pmset -a standbydelay 86400
 
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+# # Never go into computer sleep mode
+# sudo systemsetup -setcomputersleep Off > /dev/null
 
-# Hibernation mode
-# 0: Disable hibernation (speeds up entering sleep mode)
-# 3: Copy RAM to disk so the system state can still be restored in case of a
-#    power failure.
-sudo pmset -a hibernatemode 0
+# # Hibernation mode
+# # 0: Disable hibernation (speeds up entering sleep mode)
+# # 3: Copy RAM to disk so the system state can still be restored in case of a
+# #    power failure.
+# sudo pmset -a hibernatemode 0
 
-# Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
+# # Remove the sleep image file to save disk space
+# sudo rm /private/var/vm/sleepimage
+# # Create a zero-byte file instead…
+# sudo touch /private/var/vm/sleepimage
+# # …and make sure it can’t be rewritten
+# sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
 # Screen                                                                      #
@@ -238,7 +238,7 @@ defaults write com.apple.screencapture disable-shadow -bool true
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
 
 # Enable HiDPI display modes (requires restart)
-sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+# sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 ###############################################################################
 # Finder                                                                      #
@@ -342,7 +342,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 
 # Show the /Volumes folder
-sudo chflags nohidden /Volumes
+# sudo chflags nohidden /Volumes
 
 # Remove Dropbox’s green checkmark icons in Finder
 # file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
@@ -579,7 +579,7 @@ defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+# sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
 # 	MENU_DEFINITION
@@ -588,35 +588,35 @@ sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Vol
 # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-	'{"enabled" = 1;"name" = "PDF";}' \
-	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 0;"name" = "CONTACT";}' \
-	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
-	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-	'{"enabled" = 0;"name" = "MUSIC";}' \
-	'{"enabled" = 0;"name" = "MOVIES";}' \
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-	'{"enabled" = 0;"name" = "SOURCE";}' \
-	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-# Load new settings before rebuilding the index
-killall mds > /dev/null 2>&1
-# Make sure indexing is enabled for the main volume
-sudo mdutil -i on / > /dev/null
-# Rebuild the index from scratch
-sudo mdutil -E / > /dev/null
+# defaults write com.apple.spotlight orderedItems -array \
+# 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+# 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+# 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+# 	'{"enabled" = 1;"name" = "PDF";}' \
+# 	'{"enabled" = 1;"name" = "FONTS";}' \
+# 	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
+# 	'{"enabled" = 0;"name" = "MESSAGES";}' \
+# 	'{"enabled" = 0;"name" = "CONTACT";}' \
+# 	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+# 	'{"enabled" = 0;"name" = "IMAGES";}' \
+# 	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
+# 	'{"enabled" = 0;"name" = "MUSIC";}' \
+# 	'{"enabled" = 0;"name" = "MOVIES";}' \
+# 	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+# 	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+# 	'{"enabled" = 0;"name" = "SOURCE";}' \
+# 	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
+# 	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+# 	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+# 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+# # Load new settings before rebuilding the index
+# killall mds > /dev/null 2>&1
+# # Make sure indexing is enabled for the main volume
+# sudo mdutil -i on / > /dev/null
+# # Rebuild the index from scratch
+# sudo mdutil -E / > /dev/null
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
@@ -698,7 +698,7 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
