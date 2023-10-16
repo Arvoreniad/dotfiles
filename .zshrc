@@ -119,7 +119,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # GPG TTY path, needed for git GPG signing 
-export GPG_TTY=$(tty)
+export GPG_TTY=$TTY
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
