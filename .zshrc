@@ -81,6 +81,7 @@ plugins=(
 	git 
 	zsh-syntax-highlighting
 	zsh-autosuggestions
+	poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -118,9 +119,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# GPG TTY path, needed for git GPG signing 
-export GPG_TTY=$TTY
-
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -149,3 +147,4 @@ fi;
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
